@@ -11,7 +11,6 @@ typedef struct el_str {
 
 std::unordered_map< int, std::unordered_set<int> > sets;
 std::unordered_map<int, element*> processes;
-int max_id = 0;
 
 void process_line(std::string);
 int get_solution();
@@ -40,23 +39,23 @@ void process_line(std::string line) {
              end = line.find(",", start);
     }
     sets[proc_id].insert(std::stoi(line.substr(start)));
-    if (proc_id > max_id) max_id = proc_id;
     processes[proc_id] = new element {nullptr, proc_id};
 }
 
 int get_solution() {
     std::unordered_set<int> roots;
-    for (int i = 0; i < max_id; i++) {
-        element* proc_node = processes[i];
+    for (auto it: sets) {
+        int proc_id = it.first;
+        element* proc_node = processes[proc_id];
         while (proc_node->parent != nullptr) {
             proc_node = proc_node->parent;
         }
-        for (int pipe: sets[i]) {
+        for (int pipe: it.second) {
             element* node = processes[pipe];
             while (node->parent != nullptr) {
                 node = node->parent;
             }
-            if (node->value != proc_node->value) {
+            if (pipe != proc_node->value) {
                 node->parent = proc_node;
             }
             if (roots.find(node->value) != roots.end()) {
