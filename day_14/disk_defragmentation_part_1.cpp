@@ -10,8 +10,6 @@ std::vector<unsigned char> knot_hash(std::string);
 
 int main() {
     int sum = 0;
-    std::bitset<8> test('a');
-    std::cout << test.count() << std::endl;
     for (size_t i = 0; i < 128; i++) {
         std::vector<unsigned char> knot = knot_hash(input_str + "-" + std::to_string(i));
         for (unsigned char ch: knot) {
