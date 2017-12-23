@@ -3,8 +3,6 @@
 #include <unordered_map>
 #include <string>
 
-int64_t get_register_value(std::string);
-
 uint8_t pc = 0;
 std::unordered_map<std::string, int64_t> registers;
 std::vector<std::string> instructions;
@@ -31,12 +29,4 @@ int main() {
 
     std::cout << "SOLUTION: " << registers["h"];
     return 0;
-}
-
-int64_t get_register_value(std::string reg) {
-    if (registers.find(reg) != registers.end()) {
-        return registers[reg];
-    } else {
-        return 0;
-    }
 }
